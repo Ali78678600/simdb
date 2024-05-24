@@ -3,80 +3,8 @@ session_start();
 include '../settings.php';
 include '../device.php';
 $conn = new mysqli($dbServer, $dbUser, $dbPass, $dbName);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
 
-function clean_data($data) {
-              
-            $data = trim($data);
-            $data = htmlspecialchars($data, ENT_IGNORE, 'utf-8');
-            $data = strip_tags($data);
-            $data = stripslashes($data);
-            return $data;
-}
-
-if(isset($_POST["btn"])){
-    
-$login  =   clean_data($_POST["userff"]);
-$passn  =   clean_data($_POST["passff"]);
-	//Making sure that SQL Injection doesn't work
-	$login = mysqli_real_escape_string($conn, $login);//test or 1=1
-	$passn = mysqli_real_escape_string($conn, $passn);
-
-                $sql = "SELECT * FROM users WHERE username='$login' && password='$passn' ";
-                $result = $conn->query($sql);
-                
-                if ($result->num_rows > 0) {
-                  while($row = $result->fetch_assoc()) {
-                    $id = $row["id"];
-                    $model = $row["mobile_mod"];
-                    
-                    
-                    if($model == "None"){
-                        $sql = "UPDATE users SET user_ip='$user_ip', mobile_mod='$mobile_mod', browser='$browser', android_v='$android_v' WHERE id='$id'";
-                            if ($conn->query($sql) === TRUE) {
-                                $_SESSION["loggedin"] = true;
-                                $_SESSION["id"] = $id;
-                                $_SESSION["username"] = $row["username"];
-                                $alert = '<div class="alert alert-success" role="alert">
-                                          Access Granted (Redirecting...)
-                                        </div>';
-                                        
-                                $sql = "INSERT INTO user_ip (user_id, ip_address)
-                                VALUES ('$id', '$user_ip')";
-                                if ($conn->query($sql) === TRUE) {}        
-                                header('location: ../index.php');
-                            }
-                    }else{
-                                
-                      if($model == $mobile_mod){
-                            $_SESSION["loggedin"] = true;
-                            $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $row["username"];
-                            $alert = '<div class="alert alert-success" role="alert">
-                                          Access Granted (Redirecting...)
-                                        </div>';
-                                   
-                                $sql = "INSERT INTO user_ip (user_id, ip_address)
-                                VALUES ('$id', '$user_ip')";
-                                if ($conn->query($sql) === TRUE) {}
-                           header('location: ../index.php');
-                      }else{
-                          $alert = '<div class="alert alert-danger" role="alert">
-                                          This device is not registered.
-                                        </div>'; 
-                      }  
-                                
-                    }
-                    
-                    
-                  }
-                } else {
-                  $alert = '<div class="alert alert-info" role="alert">
-                                          incorrect Login informaion.
-                                        </div>';
-                }   
+        
     
     
     
