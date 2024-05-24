@@ -1,324 +1,385 @@
+<?php
+session_start();
+include '../settings.php';
+include '../device.php';
+$conn = new mysqli($dbServer, $dbUser, $dbPass, $dbName);
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
 
+function clean_data($data) {
+              
+            $data = trim($data);
+            $data = htmlspecialchars($data, ENT_IGNORE, 'utf-8');
+            $data = strip_tags($data);
+            $data = stripslashes($data);
+            return $data;
+}
 
-<html lang="en">
-	
-	<style type="text/css">
-.tg  {border-collapse:collapse;border-color:#9ABAD9;border-spacing:0;}
-.tg td{background-color:#EBF5FF;border-color:#9ABAD9;border-style:solid;border-width:1px;color:#444;
-  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{background-color:#409cff;border-color:#9ABAD9;border-style:solid;border-width:1px;color:#fff;
-  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-wgsn{border-color:inherit;font-family:Arial, Helvetica, sans-serif !important;;text-align:left;vertical-align:top}
-.tg .tg-g9ri{background-color:#97c5f7;border-color:inherit;text-align:left;vertical-align:top}
-.tg .tg-iu1i{background-color:#409cff;border-color:inherit;font-size:15px;text-align:left;vertical-align:top}
-.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
-.tg .tg-de5r{border-color:inherit;font-family:"Comic Sans MS", cursive, sans-serif !important;;font-size:16px;font-weight:bold;
-  text-align:left;vertical-align:top}
-.tg .tg-xfje{background-color:#e8e7b9;border-color:inherit;font-family:Verdana, Geneva, sans-serif !important;;font-size:16px;
-  font-weight:bold;text-align:left;vertical-align:top}
-</style>
-  <head>
-
-<script async src='https://d2mpatx37cqexb.cloudfront.net/delightchat-whatsapp-widget/embeds/embed.min.js'></script>
-        <script>
-          var wa_btnSetting = {"btnColor":"#16BE45","ctaText":"Start Chat","cornerRadius":40,"marginBottom":20,"marginLeft":20,"marginRight":20,"btnPosition":"right","whatsAppNumber":"923215948578","welcomeMessage":"Hi Admin. !!!\n","zIndex":999999,"btnColorScheme":"light"};
-          window.onload = () => {
-            _waEmbed(wa_btnSetting);
-          };
-        </script>
-
-
-
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
+if(isset($_POST["btn"])){
     
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <title> Hawk| All Network Details</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" />
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+$login  =   clean_data($_POST["userff"]);
+$passn  =   clean_data($_POST["passff"]);
+	//Making sure that SQL Injection doesn't work
+	$login = mysqli_real_escape_string($conn, $login);//test or 1=1
+	$passn = mysqli_real_escape_string($conn, $passn);
 
-<link href="style.css">
-<!------ Include the above in your HEAD tag ---------->
-<script src="" defer></script>
-<script>
-  window.OneSignal = window.OneSignal || [];
-  OneSignal.push(function() {
-    OneSignal.init({
-      appId: "",
-    });
-  });
-</script>
-</head>
-
-<body>
-   
-   <head>
-   
-<div class="">
-	
-	
-	<nav class="navbar navbar-expand-lg navbar-light " style="background-color: #00bbff;">
-         <a class="navbar-brand" href="https://ali78678600.github.io/simdb/">
-          <img src="logo.webp" style="max-height: 50px;" alt="">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto topnav text-white">
-                <li class="nav-item active">
-                    <a class="nav-link text-white" href="#">Home <span class="sr-only">(current)</span></a>
-               
-              
-               
-               
-                </li>
-                               <li class="nav-item">
-                                   
+                $sql = "SELECT * FROM users WHERE username='$login' && password='$passn' ";
+                $result = $conn->query($sql);
                 
-                </li>
-                            </ul>
-        </div>
-
-            <!-- The Modal -->
-    <div class="modal" id="myModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Customer Sign In</h4>
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <form>
-                        <label class="sr-only" for="usrname">Username</label>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                        </div>
-
-
-                        <label class="sr-only" for="Password">Name</label>
-                        <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon2"><i class="fa fa-key"></i></span>
-                            </div>
-                            <input id="Password" type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon2">
-                        </div>
-                    </form>
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" >Sign In</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-            
-
-    </nav>
-</div>
-
-<div class="container">
-<div class="row">
-    <div class="col-lg-3">
-     
-                 
-               
-              
-            </div>
-          </div>
-
-
-         
-    </div>
-    <div class="col-lg-6">
-        <div class="card my-3">
-            
-            <div class="card-body">
-               <h3>HAWK EYE</h3>
-                 <h4 style="color: #00bbff;"> <a href="https://wa.me/923215948578?text=hello%20sir">Click Here For Paid Services </a> </h4>
-                 
-                 
-                 
-                     <form  action=search-result.php method=post name=sub>
-                        <label class="sr-only" for="usrname">Username</label>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
-                            </div>
-                            <input type="number" class="form-control" name=num placeholder="322112222 or 3520211114489" aria-label="Username" aria-describedby="basic-addon1">
-                        </div>
-                        
-                        
- </b>
-
-      
-</br>
-                         <button type="submit" class="btn btn-danger center-block" style="align-center " >Search Number</button>
-                    </form>    
- </b>
- 
- 
-             
-
-
- </b>
-<h4 style="color: #00bbff;"> <a href="wa.me/923215948578">Click Here For Paid Services 03215948578</a> </h4>
- </b>
- 
-               
-                
- </b> 
-                 
-                 
+                if ($result->num_rows > 0) {
+                  while($row = $result->fetch_assoc()) {
+                    $id = $row["id"];
+                    $model = $row["mobile_mod"];
                     
-                
+                    
+                    if($model == "None"){
+                        $sql = "UPDATE users SET user_ip='$user_ip', mobile_mod='$mobile_mod', browser='$browser', android_v='$android_v' WHERE id='$id'";
+                            if ($conn->query($sql) === TRUE) {
+                                $_SESSION["loggedin"] = true;
+                                $_SESSION["id"] = $id;
+                                $_SESSION["username"] = $row["username"];
+                                $alert = '<div class="alert alert-success" role="alert">
+                                          Access Granted (Redirecting...)
+                                        </div>';
+                                        
+                                $sql = "INSERT INTO user_ip (user_id, ip_address)
+                                VALUES ('$id', '$user_ip')";
+                                if ($conn->query($sql) === TRUE) {}        
+                                header('location: ../index.php');
+                            }
+                    }else{
+                                
+                      if($model == $mobile_mod){
+                            $_SESSION["loggedin"] = true;
+                            $_SESSION["id"] = $id;
+                            $_SESSION["username"] = $row["username"];
+                            $alert = '<div class="alert alert-success" role="alert">
+                                          Access Granted (Redirecting...)
+                                        </div>';
+                                   
+                                $sql = "INSERT INTO user_ip (user_id, ip_address)
+                                VALUES ('$id', '$user_ip')";
+                                if ($conn->query($sql) === TRUE) {}
+                           header('location: ../index.php');
+                      }else{
+                          $alert = '<div class="alert alert-danger" role="alert">
+                                          This device is not registered.
+                                        </div>'; 
+                      }  
+                                
+                    }
+                    
+                    
+                  }
+                } else {
+                  $alert = '<div class="alert alert-info" role="alert">
+                                          incorrect Login informaion.
+                                        </div>';
+                }   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}
+
+
+?>
 
 
 
 
 
-<h3 style="text-align: right;"><strong>کسی بھی نمبر کا ڈیٹا نکلوائیں</strong></h3>
-<table border="0" style="height: 273px; width: 100%; border-collapse: collapse;">
-<tbody>
-<tr style="height: 21px;">
-<td style="width: 97.7044%; height: 21px; text-align: right;">سم کی ڈیٹیل</td>
-<td style="width: 2.29563%; height: 21px; text-align: right;">-1</td>
-</tr>
-<tr style="height: 21px;">
-<td style="width: 97.7044%; height: 21px; text-align: right;">&nbsp;تصویر کے ساتھ نکلوائیں</td>
-<td style="width: 2.29563%; height: 21px; text-align: right;">-2</td>
-</tr>
-<tr style="height: 21px;">
-<td style="width: 97.7044%; height: 21px; text-align: right;">شناختی کارڈ پر ایکٹو سمز کے نمبرز بھی نکلوائیں</td>
-<td style="width: 2.29563%; height: 21px; text-align: right;">-3</td>
-</tr>
-<tr style="height: 21px;">
-<td style="width: 97.7044%; height: 21px; text-align: right;">شناختی کارڈ کی کلر کاپی نکلوائیں</td>
-<td style="width: 2.29563%; height: 21px; text-align: right;">-4</td>
-</tr>
-<tr style="height: 21px;">
-<td style="width: 97.7044%; height: 21px; text-align: right;">کسی بھی نمبر کا مکمل ریکارڈ CDR کال ہسٹری نکلوائیں</td>
-<td style="width: 2.29563%; height: 21px; text-align: right;">-5</td>
-</tr>
-<tr style="height: 21px;">
-<td style="width: 97.7044%; height: 21px; text-align: right;">باہر کے نمبر کا وٹس ایپ بنوائیں</td>
-<td style="width: 2.29563%; height: 21px; text-align: right;">-6</td>
-</tr>
-<tr style="height: 21px;">
-<td style="width: 97.7044%; height: 21px; text-align: right;">نادرا فیملی ٹری۔ پورے خاندان کی معلومات نکلوائیں</td>
-<td style="width: 2.29563%; height: 21px; text-align: right;">-7</td>
-</tr>
-<tr style="height: 21px;">
-<td style="width: 97.7044%; height: 21px; text-align: right;">پن پوائینٹ لوکیشن آل نیٹ ورک نکلوائیں</td>
-<td style="width: 2.29563%; height: 21px; text-align: right;">-8</td>
-</tr>
-<tr style="height: 21px;">
-<td style="width: 97.7044%; height: 21px; text-align: right;">آل نیٹ ورک سم ایکٹو کروائیں</td>
-<td style="width: 2.29563%; height: 21px; text-align: right;">-9</td>
-</tr>
-<tr style="height: 21px;">
-<td style="width: 97.7044%; height: 21px; text-align: right;">موبائل گم ہو جائے یا چوری ہو جائے موبائل ٹریکنگ ہو جائے گی</td>
-<td style="width: 2.29563%; text-align: right; height: 21px;">-10</td>
-</tr>
-<tr style="height: 21px;">
-<td style="width: 97.7044%; height: 21px; text-align: right;">جاز کیش اکاءوںٹ</td>
-<td style="width: 2.29563%; text-align: right; height: 21px;">-11</td>
-</tr>
-<tr style="height: 21px;">
-<td style="width: 97.7044%; height: 21px; text-align: right;">ٹیلی نار ایزیا پیسہ</td>
-<td style="width: 2.29563%; text-align: right; height: 21px;">-12</td>
-</tr>
-</tbody>
-</table>
-<p></p>
 
-<p style="text-align: right;"><strong> آپ کو ڈیٹا گارنٹی سے دیا جائے گا</strong></p>
-<h4 style="color: #00bbff;"> <a href="wa.me/923215948578">Click Here For Paid Services 03215948578</a> </h4>
- </b>
-               
-               
-               
-                
-         
 
-                <div class="container center-block">
-                <div class="row kbc">
-                    <div class="col-lg-4">
-                        
-                    </div>
-                </div>
-                </div>
-                
-                
+
+
+
+
+
+
+
+
+<!--===============================================================================================-->
+</head>
+<body>
+<!doctype html>
+                        <html>
+                            <head>
+                                <meta charset='utf-8'>
+                                <meta name='viewport' content='width=device-width, initial-scale=1'>
+                                <title>Hawks DB | Login</title>
+                                
+                        <html>
+                            <head>
+                                <meta charset='utf-8'>
+                                <meta name='viewport' content='width=device-width, initial-scale=1'>
+                                <title></title>
+                                <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css' rel='stylesheet'>
+                                <link href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' rel='stylesheet'>
+                                <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+                                <style>::-webkit-scrollbar {
+                                  width: 8px;
+                                }
+                                /* Track */
+                                ::-webkit-scrollbar-track {
+                                  background: #f1f1f1; 
+                                }
+                                 
+                                /* Handle */
+                                ::-webkit-scrollbar-thumb {
+                                  background: #888; 
+                                }
+                                
+                                /* Handle on hover */
+                                ::-webkit-scrollbar-thumb:hover {
+                                  background: #555; 
+                                } /* Importing fonts from Google */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Reseting */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #ecf0f3;
+}
+
+.wrapper {
+    max-width: 350px;
+    min-height: 500px;
+    margin: 80px auto;
+    padding: 40px 30px 30px 30px;
+    background-color: #ecf0f3;
+    border-radius: 15px;
+    box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
+}
+
+.logo {
+    width: 80px;
+    margin: auto;
+}
+
+.logo img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0px 0px 3px #5f5f5f,
+        0px 0px 0px 5px #ecf0f3,
+        8px 8px 15px #a7aaa7,
+        -8px -8px 15px #fff;
+}
+
+.wrapper .name {
+    font-weight: 600;
+    font-size: 1.4rem;
+    letter-spacing: 1.3px;
+    padding-left: 10px;
+    color: #555;
+}
+
+.wrapper .form-field input {
+    width: 100%;
+    display: block;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.2rem;
+    color: #666;
+    padding: 10px 15px 10px 10px;
+    /* border: 1px solid red; */
+}
+
+.wrapper .form-field {
+    padding-left: 10px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
+}
+
+.wrapper .form-field .fas {
+    color: #555;
+}
+
+.wrapper .btn {
+    box-shadow: none;
+    width: 100%;
+    height: 40px;
+    background-color: black;
+    color: #fff;
+    border-radius: 25px;
+    box-shadow: 3px 3px 3px #b1b1b1,
+        -3px -3px 3px #fff;
+    letter-spacing: 1.3px;
+}
+
+.wrapper .btn:hover {
+    background-color: #039BE5;
+}
+
+.wrapper a {
+    text-decoration: none;
+    font-size: 0.8rem;
+    color: #03A9F4;
+}
+
+.wrapper a:hover {
+    color: #039BE5;
+}
+
+@media(max-width: 380px) {
+    .wrapper {
+        margin: 30px 20px;
+        padding: 40px 15px 15px 15px;
+    }
+}</style>
+                                </head>
+                                <body className='snippet-body'>
+<div class="wrapper">
+        <div class="logo">
+            <img src="http://newdata.tk/app/11.jpg" alt="">
+        </div>
+        <div class="text-center mt-4 name">
+          ༒☆ 𝐇𝐀𝐖𝐊'𝐒 𝐃𝐁☆༒
+        </div>
+	&nbsp; 
+				<form class="login100-form validate-form" method="POST" action="index.php">
+       <form class="p-3 mt-3">
+            <div class="form-field d-flex align-items-center">
+                <span class="far fa-user"></span>
+                <input type="text" name="userff" id="userName" placeholder="Username">
             </div>
-          </div>
-
-    
-    </div>
-    <style>
-        .btn-app-store{
-    background: black;
-	color: white;
-	position: relative;
-	height: 60px;
-	padding-left: 55px;
-	padding-right: 20px;
-}
-.btn-app-store i{
-	font-size: 40px;
-	position: absolute;
-	left: 10px;
-}
-.btn-app-store .small{
-	display: block;
-	font-size: 12px;
-	line-height: 12px;
-	margin-bottom: 2px;
-    margin-top: 5px;
-}
-.btn-app-store .big{
-	display: block;
-	text-align: left;
-	font-size: 21px;
-	line-height: 21px;
-}
-    </style>
-    
-  
-            
-             
-
+            <div class="form-field d-flex align-items-center">
+                <span class="fas fa-key"></span>
+                <input type="password" name="passff" id="pwd" placeholder="Password">
             </div>
-          </div>
-   
+					<div class="p-t-8 p-b-31">
+					    											</div>
+							<button type="submit" name="btn" class="btn mt-3">
+								Login
+							</button>
+								<button class="btn mt-3" onclick=location.href="https://wa.me/923215948578"> Buy Login</button>
+							</button>
+							<button class="btn mt-3" onclick=location.href="https://chat.whatsapp.com/Dtn9JWfK7zDE5xGV8yTbna"> WhatsApp Group </a></button>
+							
+
+<br>
+      
+      <style>
+      
+      
+
+ul {
+  position: center;
+  padding-top:20px;
+  left:0px;
+  //transform: translate(-50%, -50%);
+  margin-top:0;
+  margin: 0;
+  padding-left: 25;
+  display:flex;
+}
+
+ul li {
+  list-style: none;
+}
+
+ul li a {
+  position: relative;
+  width:60px;
+  height:60px;
+  display:block;
+  text-align:center;
+  margin:0 10px;
+  border-radius: 50%;
+  padding: 6px;
+  box-sizing: border-box;
+  text-decoration:none;
+  box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+  background: linear-gradient(0deg, #ddd, #fff);
+  transition: .5s;
+}
+
+ul li a:hover {
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  text-decoration:none;
+}
+
+ul li a .fab {
+  widht: 100%;
+  height:100%;
+  display:block;
+  background: linear-gradient(0deg, #fff, #ddd);
+  border-radius: 50%;
+  line-height: calc(60px - 12px);
+  font-size:24px;
+  color: #262626;
+  transition: .5s;
+}
+
+ul li:nth-child(1) a:hover .fab {
+  color: #3b5998;
+}
+
+ul li:nth-child(2) a:hover .fab {
+  color: #00aced;
+}
+
+ul li:nth-child(3) a:hover .fab {
+  color: #dd4b39;
+}
+
+ul li:nth-child(4) a:hover .fab {
+  color: #007bb6;
+}
+
+ul li:nth-child(5) a:hover .fab {
+  color: #e4405f;
+}
+      
+      </style>
+     
+<ul>
+  <li><a href="http://wa.me/+923215948578?text=hi+sir+want+login"><i class="fab fa-whatsapp" aria-hidden="true"></i></a></li>
+  <li><a href="https://www.youtube.com/@HawksDb786"><i class="fab fa-youtube" aria-hidden="true"></i></a></li>
+  <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+</ul>
+        </form>
+  </div>
     </div>
-    
-
-</div>
-</div>
-<footer class="footer">
-   
-</footer>
-
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+                                <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js'></script>
+                                <script type='text/javascript' src='#'></script>
+                                <script type='text/javascript' src='#'></script>
+                                <script type='text/javascript' src='#'></script>
+                                <script type='text/javascript'>#</script>
+                                <script type='text/javascript'>var myLink = document.querySelector('a[href="#"]');
+                                myLink.addEventListener('click', function(e) {
+                                  e.preventDefault();
+                               });</script>
+                           
+                               
+                            
 
 </body>
 </html>
+                            
+        <center><h1>Demo👇<h1></centre>
+<iframe width="360" height="315" src="VID-20230701-WA0005.mp4" frameborder="0" allowfullscreen></iframe>
+								
