@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Purchase Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        .service-banner {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .service-listing {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .service {
+            border: 1px solid #ddd;
+            background-color: white;
+            margin: 10px;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .service h2 {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .service p {
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="service-banner">
+        <h1>Available Services for Purchase</h1>
+    </div>
+
+    <div class="service-listing">
+        <!-- Add services here -->
+        <div class="service">
+            <h2>All Network Fresh Number Details</h2>
+            <p>(Name, CNIC, Address)</p>
+            <button onclick="redirectToWhatsApp('All Network Fresh Number Details')">Buy Now</button>
+        </div>
+        
+        <div class="service">
+            <h2>All Numbers Against CNIC</h2>
+            <button onclick="redirectToWhatsApp('All Numbers Against CNIC')">Buy Now</button>
+        </div>
+
+        <div class="service">
+            <h2>Nadra CNIC Verification</h2>
+            <button onclick="redirectToWhatsApp('Nadra CNIC Verification')">Buy Now</button>
+        </div>
+
+        <div class="service">
+            <h2>Pin Point Location</h2>
+            <button onclick="redirectToWhatsApp('Pin Point Location')">Buy Now</button>
+        </div>
+
+        <div class="service">
+            <h2>Family Tree</h2>
+            <button onclick="redirectToWhatsApp('Family Tree')">Buy Now</button>
+        </div>
+
+        <div class="service">
+            <h2>CDR (Call Data Record)</h2>
+            <button onclick="redirectToWhatsApp('CDR (Call Data Record)')">Buy Now</button>
+        </div>
+
+        <div class="service">
+            <h2>IMEI Tracking</h2>
+            <p>(Stolen or Lost Mobile Trace)</p>
+            <button onclick="redirectToWhatsApp('IMEI Tracking')">Buy Now</button>
+        </div>
+
+        <div class="service">
+            <h2>Fake WhatsApp Number</h2>
+            <button onclick="redirectToWhatsApp('Fake WhatsApp Number')">Buy Now</button>
+        </div>
+
+        <div class="service">
+            <h2>Vehicle Details</h2>
+            <button onclick="redirectToWhatsApp('Vehicle Details')">Buy Now</button>
+        </div>
+
+        <div class="service">
+            <h2>Marriage Certificate (Copy)</h2>
+            <button onclick="redirectToWhatsApp('Marriage Certificate (Copy)')">Buy Now</button>
+        </div>
+
+        <div class="service">
+            <h2>Death Certificate (Copy)</h2>
+            <button onclick="redirectToWhatsApp('Death Certificate (Copy)')">Buy Now</button>
+        </div>
+
+        <div class="service">
+            <h2>FRC (Family Registration Certificate)</h2>
+            <button onclick="redirectToWhatsApp('FRC (Family Registration Certificate)')">Buy Now</button>
+        </div>
+
+        <div class="service">
+            <h2>Vaccination Details</h2>
+            <p>(Corona, Booster, Polio)</p>
+            <button onclick="redirectToWhatsApp('Vaccination Details')">Buy Now</button>
+        </div>
+
+        <div class="service">
+            <h2>Travel History</h2>
+            <button onclick="redirectToWhatsApp('Travel History')">Buy Now</button>
+        </div>
+
+        <div class="service">
+            <h2>Passport Details</h2>
+            <button onclick="redirectToWhatsApp('Passport Details')">Buy Now</button>
+        </div>
+
+        <div class="service">
+            <h2>Fake Calling Software</h2>
+            <p>(Private, Unknown Number)</p>
+            <button onclick="redirectToWhatsApp('Fake Calling Software')">Buy Now</button>
+        </div>
+    </div>
+
+    <script>
+        function redirectToWhatsApp(service) {
+            const phoneNumber = "923215948578";
+            const url = `https://wa.me/${phoneNumber}?text=I'm%20interested%20in%20purchasing%20the%20${encodeURIComponent(service)}%20service.`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
